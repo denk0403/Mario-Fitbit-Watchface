@@ -1,0 +1,46 @@
+<svg>
+  <image id="background" href="assets/night_background.png" x="0" y="0" width="100%" height="100%" class="background" />
+<!--   <image id="midground" href="assets/mountains.png" x="0" y="0" width="100%" height="100%" fill="#000000" class="midground" /> -->
+  <image id="foreground" href="assets/foreground.png" x="0" y="0" width="100%" height="100%" class="foreground" />
+  <image id="night_overlay" href="assets/night_overlay.png" x="0" y="0" width="100%" height="100%" class="overlay" />
+<!--   <image id="snow_overlay" href="assets/snow_overlay.png" x="0" y="0" width="100%" height="100%" fill="#000000" class="overlay" /> -->
+  
+  <image id="battery_icon" href="assets/battery.png" x="5" y="5" width="15" height="30" class="icon"/>
+  <text id="battery" />
+  
+  <text id="date" />
+  
+  <g id="movable">
+    <mask id="mask">
+      <rect x="51" y="33" width="200" height="100" />
+      <rect x="250" y="108" width="25" height="25" />
+    </mask>
+  <svg mask="#mask">
+    <image id="blocks" href="assets/blocks.png" x="50" y="33" width="200" height="100" class="blocks"/>
+    
+    <svg id="time"> 
+      <image id="hours1" href="" x="63" y="55" width="33" height="55" class="foreground" />
+      <image id="hours2" href="" x="104" y="55" width="33" height="55" class="foreground" />
+      <image id="mins1" href="" x="163" y="55" width="33" height="55" class="foreground" />
+      <image id="mins2" href="" x="204" y="55" width="33" height="55" class="foreground" />
+      <animate attributeName="y" begin="enable+0.25" from="0" to="-82" dur="0.25" />
+      <animate attributeName="y" begin="enable+0.5" from="-82" to="49" dur="0" />
+      <animate attributeName="y" begin="enable+0.5" from="49" to="0" dur="0.25" />
+    </svg>
+    
+    <image id="am-pm" href="assets/am-block.png" x="250" y="108" width="25" height="25" class="foreground" />
+    
+    <animate attributeName="y" begin="enable+0.25" from="0" to="-33" dur="0.25" />
+    <animate attributeName="y" begin="enable+0.5" from="-33" to="0" dur="0.25" />
+  </svg>
+  </g>
+  
+  <image id="jumping_mario" href="" x="33%" y="180" width="33%" height="100" class="player">
+      <animate attributeName="y" begin="enable" from="180" to="133" dur="0.25" />
+      <animate attributeName="y" begin="enable+0.25" from="133" to="100" dur="0.25" />
+      <animate attributeName="y" begin="enable+0.5" from="100" to="133" dur="0.25" />
+      <animate attributeName="y" begin="enable+0.75" from="133" to="180" dur="0.25" />
+  </image>
+  <image id="standing_mario" href="assets/standing_mario.png" x="112" y="180" width="75" height="100" class="player"/>
+  
+</svg>

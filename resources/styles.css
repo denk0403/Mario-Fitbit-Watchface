@@ -1,0 +1,20 @@
+#battery {
+  font-size: 16;
+  font-family: System-Bold;
+  text-length: 10;
+  text-anchor: middle;
+  x: 45;
+  y: 25;
+  fill: white;
+}
+
+#date {
+  font-size: 32;
+  font-family: Tungsten-Medium;
+  text-length: 1000;
+  text-anchor: middle;
+  x: 50%;
+  y: 27;
+  fill: white;
+  
+}

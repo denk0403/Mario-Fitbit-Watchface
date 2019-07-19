@@ -1,0 +1,25 @@
+{
+  "fitbit": {
+    "appUUID": "26f6edd0-a371-4d1d-b66c-444fcdde83f1",
+    "appType": "clockface",
+    "appDisplayName": "Mario Watchface",
+    "iconFile": "resources/icon.png",
+    "wipeColor": "",
+    "requestedPermissions": [
+      "access_location"
+    ],
+    "buildTargets": [
+      "meson",
+      "gemini"
+    ],
+    "i18n": {
+      "en": {
+        "name": "Mario Watchface"
+      }
+    },
+    "defaultLanguage": "en-US"
+  },
+  "devDependencies": {
+    "@fitbit/sdk": "~3.1.0"
+  }
+}
