@@ -19,6 +19,7 @@ let movable = document.getElementById("movable");
 
 //INFO
 let battPer = document.getElementById("battery");
+let battIcon = document.getElementById("battery_icon");
 let date = document.getElementById("date");
 
 // TIME
@@ -40,13 +41,6 @@ let dotw = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
 
 // Update the clock every minute
 clock.granularity = "minutes";
-
-// TEMPORARY!!!
-function locationSuccess(position) {
-    let loc = position.coords;
-    console.log("Latitude: " + position.coords.latitude,
-                "Longitude: " + position.coords.longitude);
-}
 
 function defaultSunsetSunrise(error) {
   console.log("Error: " + error.code,
@@ -135,6 +129,19 @@ function jump(updatePM) {
   }, 1000);
 }
 
+function updateBattery() {
+  battPer.text = Math.floor(battery.chargeLevel) + "%";
+  if (battery.chargeLevel > 75) {
+    battIcon.image = "assets/100battery.png";
+  } else if (battery.chargeLevel > 50) {
+    battIcon.image = "assets/75battery.png";
+  } else if (battery.chargeLevel > 25) {
+    battIcon.image = "assets/50battery.png";
+  } else {
+    battIcon.image = "assets/25battery.png";
+  }
+}
+
 resetDate();
 
 clock.ontick = (evt) => {
@@ -147,7 +154,8 @@ clock.ontick = (evt) => {
     resetDate();
   }
   
-  battPer.text = Math.floor(battery.chargeLevel) + "%";
+  updateBattery();
+  
   date.text = dotw[today.getDay()] + ",  " + months[today.getMonth()] + "  " + today.getDate() + "  " + today.getFullYear();
   
   jump(hours >= 12);
