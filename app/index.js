@@ -11,10 +11,11 @@ let standLink;
 let jumpLink;
 let playerStand = document.getElementById("standing_mario");
 let playerJump = document.getElementById("jumping_mario");
+let jumpAnim = document.getElementById("jump_animation");
 
 //SCENE
 let background = document.getElementById("background");
-let nightOverlay = document.getElementById("night_overlay");
+let overlay = document.getElementById("overlay");
 let movable = document.getElementById("movable");
 
 //INFO
@@ -30,10 +31,21 @@ let mins2 = document.getElementById("mins2");
 let amPM = document.getElementById("am-pm");
 
 // sunrise/sunset info
-let sunrise = new Date(Date.now());
-sunrise.setHours(6);
-let sunset = new Date(Date.now());;
-sunset.setHours(20);
+let sunrise;
+let sunset;
+
+function defaultSunsetSunrise(error) {
+  sunrise = new Date();
+  sunrise.setHours(6);
+  sunrise.setMinutes(0);
+  sunrise.setSeconds(0);
+  sunset = new Date();
+  sunset.setHours(20);
+  sunset.setMinutes(0);
+  sunset.setSeconds(0);
+}
+
+defaultSunsetSunrise(null);
 
 // EXTRA
 let months = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
@@ -42,31 +54,18 @@ let dotw = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
 // Update the clock every minute
 clock.granularity = "minutes";
 
-function defaultSunsetSunrise(error) {
-  console.log("Error: " + error.code,
-              "Message: " + error.message);
-  sunrise = new Date(Date.now());
-  sunrise.setHours(6);
-  sunrise.setMinutes(0);
-  sunrise.setSeconds(0);
-  sunset = new Date(Date.now());
-  sunset.setHours(20);
-  sunset.setMinutes(0);
-  sunset.setSeconds(0);
-}
-
 function setToNight() {
   background.image = "assets/night_background.png";
-  nightOverlay.image = "assets/night_overlay.png";
+  overlay.image = "assets/night_overlay.png";
 }
 
 function setToMorning() {
   background.image = "assets/day_background.png";
-  nightOverlay.image = "";
+  overlay.image = "assets/day_overlay.png";
 }
 
 function updateScene() {
-  let today = new Date(Date.now());
+  let today = new Date();
   if (today.getTime() >= sunrise.getTime() && today.getTime() < sunset.getTime()) {
     setToMorning();
   } else {
@@ -76,7 +75,7 @@ function updateScene() {
 
 function updateSunsetSunrise(position) {
   let loc = position.coords;
-  var times = answer.getTimes(new Date(Date.now()), loc.latitude, loc.longitude);
+  var times = answer.getTimes(new Date(), loc.latitude, loc.longitude);
   sunrise = times.sunrise;
   sunset = times.sunset;
   updateScene();
@@ -85,10 +84,10 @@ function updateSunsetSunrise(position) {
 function setToBirthday() {
   standLink = "assets/birthday_standing_mario.png";
   jumpLink = "assets/birthday_jumping_mario.png";
-  playerStand.height = 116;
-  playerStand.y = 164;
-  playerJump.height = 110;
-  playerJump.y = 170;
+  playerStand.height = 138;
+  playerStand.y = 142;
+  playerJump.height = 138;
+  playerJump.y = 142;
 }
 
 function setToRegular() {
@@ -101,7 +100,7 @@ function setToRegular() {
 }
 
 function resetDate() {
-  let date = new Date(Date.now());
+  let date = new Date();
   if (date.getMonth() === 3 && date.getDate() === 3) {
     setToBirthday();
   }
@@ -121,7 +120,7 @@ function jump(updatePM) {
   }, 500);
   playerStand.image = "";
   playerJump.image = jumpLink;
-  playerJump.animate("enable");
+  jumpAnim.animate("enable");
   movable.animate("enable");
   setTimeout(() => {
     playerJump.image = "";
