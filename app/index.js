@@ -5,17 +5,22 @@ import * as util from "../common/utils";
 import { answer } from '../common/libs';
 import { geolocation } from "geolocation";
 import { battery } from "power";
+import * as messaging from "messaging";
 
 //PLAYER
 let standLink;
 let jumpLink;
+let isJumping = false;
 let playerStand = document.getElementById("standing_mario");
 let playerJump = document.getElementById("jumping_mario");
 let jumpAnim = document.getElementById("jump_animation");
 
+//BIRTHDAY
+let birthMonth = 0;
+let birthDate = 0;
+
 //SCENE
 let background = document.getElementById("background");
-let overlay = document.getElementById("overlay");
 let movable = document.getElementById("movable");
 
 //INFO
@@ -55,13 +60,11 @@ let dotw = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
 clock.granularity = "minutes";
 
 function setToNight() {
-  background.image = "assets/night_background.png";
-  overlay.image = "assets/night_overlay.png";
+  background.image = "assets/full_night.png";
 }
 
 function setToMorning() {
-  background.image = "assets/day_background.png";
-  overlay.image = "assets/day_overlay.png";
+  background.image = "assets/full_day.png";
 }
 
 function updateScene() {
@@ -81,9 +84,18 @@ function updateSunsetSunrise(position) {
   updateScene();
 }
 
+function resetMario() {
+  if (isJumping) {
+    playerJump.image = jumpLink;
+  } else {
+    playerStand.image = standLink;
+  }
+}
+
 function setToBirthday() {
-  standLink = "assets/birthday_standing_mario.png";
   jumpLink = "assets/birthday_jumping_mario.png";
+  standLink = "assets/birthday_standing_mario.png";
+  resetMario();
   playerStand.height = 138;
   playerStand.y = 142;
   playerJump.height = 138;
@@ -91,38 +103,44 @@ function setToBirthday() {
 }
 
 function setToRegular() {
-  standLink = "assets/standing_mario.png";
   jumpLink = "assets/jumping_mario.png";
+  standLink = "assets/standing_mario.png";
+  resetMario();
   playerStand.height = 100;
   playerStand.y = 180;
   playerJump.height = 100;
   playerJump.y = 180;
 }
 
-function resetDate() {
-  let date = new Date();
-  if (date.getMonth() === 3 && date.getDate() === 3) {
+function checkBirthday(date) {
+  if (date.getMonth() == birthMonth && date.getDate() == birthDate) {
     setToBirthday();
   }
   else {
     setToRegular();
   }
+}
+
+function resetDate() {
+  checkBirthday(new Date());
   geolocation.getCurrentPosition(updateSunsetSunrise, defaultSunsetSunrise);
 }
 
 function jump(updatePM) {
+  isJumping = true;
   setTimeout(() => {
     if (updatePM) {
       amPM.image = "assets/pm-block.png";
     } else {
       amPM.image = "assets/am-block.png";
     }
-  }, 500);
+  }, 0);
   playerStand.image = "";
   playerJump.image = jumpLink;
   jumpAnim.animate("enable");
   movable.animate("enable");
   setTimeout(() => {
+    isJumping = false;
     playerJump.image = "";
     playerStand.image = standLink;
   }, 1000);
@@ -141,6 +159,15 @@ function updateBattery() {
   }
 }
 
+messaging.peerSocket.onmessage = evt => {
+  if (evt.data.key === "month" && evt.data.newValue) {
+    birthMonth = parseInt(JSON.parse(evt.data.newValue).values[0].value, 10);
+  } else if (evt.data.key === "date" && evt.data.newValue) {
+    birthDate = parseInt(JSON.parse(evt.data.newValue).values[0].value, 10);
+  }
+  checkBirthday(new Date());
+};
+
 resetDate();
 
 clock.ontick = (evt) => {
@@ -152,8 +179,9 @@ clock.ontick = (evt) => {
   if (hours === 0 && mins === 0) {
     resetDate();
   }
-  
+
   updateBattery();
+  updateScene();
   
   date.text = dotw[today.getDay()] + ",  " + months[today.getMonth()] + "  " + today.getDate() + "  " + today.getFullYear();
   
@@ -171,6 +199,5 @@ clock.ontick = (evt) => {
     hours2.image = `assets/numbers/${hours[1]}.png`;
     mins1.image = `assets/numbers/${mins[0]}.png`;
     mins2.image = `assets/numbers/${mins[1]}.png`;
-    updateScene();
   }, 500);
 }
