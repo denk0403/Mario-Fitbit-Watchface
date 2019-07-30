@@ -147,7 +147,7 @@ function jump(updatePM) {
 }
 
 function updateBattery() {
-  battPer.text = Math.floor(battery.chargeLevel) + "%";
+  battPer.text = Math.round(battery.chargeLevel) + "%";
   if (battery.chargeLevel > 75) {
     battIcon.image = "assets/100battery.png";
   } else if (battery.chargeLevel > 50) {
