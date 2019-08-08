@@ -1,0 +1,26 @@
+The following assets have been excluded to protect my work:
+
+- 25battery.png
+- 50battery.png
+- 75battery.png
+- 100battery.png
+- am-block.png
+- pm-block.png
+- full_day.png
+- full_night.png
+- no_phone.png
+- yes_phone.png
+- standing_mario.png
+- jumping_mario.png
+- birthday_standing_mario.png
+- birthday_jumping_mario.png
+- numbers/0.png
+- numbers/1.png
+- numbers/2.png
+- numbers/3.png
+- numbers/4.png
+- numbers/5.png
+- numbers/6.png
+- numbers/7.png
+- numbers/8.png
+- numbers/9.png
