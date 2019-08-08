@@ -17,6 +17,7 @@ let mario = document.getElementById("mario");
 let jumpAnim = document.getElementById("jump_animation");
 
 //BIRTHDAY
+let allowBirthday = false;
 let isBirthday = false;
 let birthMonth = 0;
 let birthDate = 0;
@@ -39,6 +40,8 @@ let mins2 = document.getElementById("mins2");
 
 
 // ALERT SCREEN
+let allowAlert = false;
+let alertDelay;
 let alert = document.getElementById("alert_screen");
 let alertTimer;
 let confirm = document.getElementById("confirm");
@@ -120,7 +123,7 @@ function setToRegular() {
 }
 
 function checkBirthday(date) {
-  if (date.getMonth() == birthMonth && date.getDate() == birthDate) {
+  if (date.getMonth() == birthMonth && date.getDate() == birthDate && allowBirthday) {
     setToBirthday();
   }
   else {
@@ -165,12 +168,29 @@ function updateBattery() {
 }
 
 messaging.peerSocket.onmessage = evt => {
-  if (evt.data.key === "month" && evt.data.newValue) {
-    birthMonth = parseInt(JSON.parse(evt.data.newValue).values[0].value, 10);
-  } else if (evt.data.key === "date" && evt.data.newValue) {
-    birthDate = parseInt(JSON.parse(evt.data.newValue).values[0].value, 10);
+  if (evt.data.key === "toggleAlert" && evt.data.newValue) {
+    allowAlert = (evt.data.newValue === "true");
+    if (!allowAlert) {
+      alert.style.visibility = "hidden";
+      phone.image = "assets/no_phone.png";
+    }
+  } else if (evt.data.key === "waitTime" && evt.data.newValue) {
+    alertDelay = Math.round(parseFloat(JSON.parse(evt.data.newValue).name) * 60000);
+  } else if (evt.data.key === "toggleBirthday" && evt.data.newValue) {
+    allowBirthday = (evt.data.newValue === "true");
+    checkBirthday(new Date());
+  } else if (evt.data.key === "birthday" && evt.data.newValue) {
+    birthMonth = parseInt(JSON.parse(evt.data.newValue).name.slice(5,7), 10)-1;
+    birthDate = parseInt(JSON.parse(evt.data.newValue).name.slice(8,10), 10);
+    checkBirthday(new Date());
+  } else {
+    allowAlert = false;
+    alertDelay = undefined;
+    allowBirthday = false;
+    birthMonth = 0;
+    birthDate = 0;
+    checkBirthday(new Date());
   }
-  checkBirthday(new Date());
 };
 
 confirm.onclick = evt => {
@@ -190,11 +210,13 @@ messaging.peerSocket.onopen = evt => {
 }
 
 messaging.peerSocket.onclose = evt => {
-  alertTimer = setTimeout(() => {
-      alert.style.visibility = "visible";
-      vibration.start("nudge-max");
-      display.poke();
-  }, 135000)
+  if (allowAlert && alertDelay >= 0) {
+    alertTimer = setTimeout(() => {
+        alert.style.visibility = "visible";
+        vibration.start("nudge-max");
+        display.poke();
+    }, alertDelay);
+  }
 }
 
 resetDate();
