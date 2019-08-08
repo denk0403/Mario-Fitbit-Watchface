@@ -4,8 +4,8 @@ The following assets have been excluded to protect my work:
 - 50battery.png
 - 75battery.png
 - 100battery.png
-- am-block.png
-- pm-block.png
+- am-blocks.png
+- pm-blocks.png
 - full_day.png
 - full_night.png
 - no_phone.png
