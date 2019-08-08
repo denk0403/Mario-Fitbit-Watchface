@@ -6,16 +6,18 @@ import { answer } from '../common/libs';
 import { geolocation } from "geolocation";
 import { battery } from "power";
 import * as messaging from "messaging";
+import { vibration } from "haptics";
+import { display } from "display";
 
 //PLAYER
 let standLink;
 let jumpLink;
 let isJumping = false;
-let playerStand = document.getElementById("standing_mario");
-let playerJump = document.getElementById("jumping_mario");
+let mario = document.getElementById("mario");
 let jumpAnim = document.getElementById("jump_animation");
 
 //BIRTHDAY
+let isBirthday = false;
 let birthMonth = 0;
 let birthDate = 0;
 
@@ -29,11 +31,18 @@ let battIcon = document.getElementById("battery_icon");
 let date = document.getElementById("date");
 
 // TIME
+let blocks = document.getElementById("blocks");
 let hours1 = document.getElementById("hours1");
 let hours2 = document.getElementById("hours2");
 let mins1 = document.getElementById("mins1");
 let mins2 = document.getElementById("mins2");
-let amPM = document.getElementById("am-pm");
+
+
+// ALERT SCREEN
+let alert = document.getElementById("alert_screen");
+let alertTimer;
+let confirm = document.getElementById("confirm");
+let phone = document.getElementById("phone");
 
 // sunrise/sunset info
 let sunrise;
@@ -86,9 +95,9 @@ function updateSunsetSunrise(position) {
 
 function resetMario() {
   if (isJumping) {
-    playerJump.image = jumpLink;
+    mario.image = jumpLink;
   } else {
-    playerStand.image = standLink;
+    mario.image = standLink;
   }
 }
 
@@ -96,20 +105,18 @@ function setToBirthday() {
   jumpLink = "assets/birthday_jumping_mario.png";
   standLink = "assets/birthday_standing_mario.png";
   resetMario();
-  playerStand.height = 138;
-  playerStand.y = 142;
-  playerJump.height = 138;
-  playerJump.y = 142;
+  if (!isBirthday) {
+    display.poke();
+    vibration.start("ring");
+  }
+  isBirthday = true;
 }
 
 function setToRegular() {
   jumpLink = "assets/jumping_mario.png";
   standLink = "assets/standing_mario.png";
   resetMario();
-  playerStand.height = 100;
-  playerStand.y = 180;
-  playerJump.height = 100;
-  playerJump.y = 180;
+  isBirthday = false;
 }
 
 function checkBirthday(date) {
@@ -127,22 +134,20 @@ function resetDate() {
 }
 
 function jump(updatePM) {
+  mario.image = jumpLink;
   isJumping = true;
   setTimeout(() => {
     if (updatePM) {
-      amPM.image = "assets/pm-block.png";
+      blocks.image = "assets/pm-blocks.png";
     } else {
-      amPM.image = "assets/am-block.png";
+      blocks.image = "assets/am-blocks.png";
     }
-  }, 0);
-  playerStand.image = "";
-  playerJump.image = jumpLink;
+  }, 250);
   jumpAnim.animate("enable");
   movable.animate("enable");
   setTimeout(() => {
+    mario.image = standLink;
     isJumping = false;
-    playerJump.image = "";
-    playerStand.image = standLink;
   }, 1000);
 }
 
@@ -167,6 +172,30 @@ messaging.peerSocket.onmessage = evt => {
   }
   checkBirthday(new Date());
 };
+
+confirm.onclick = evt => {
+  setTimeout(() => {
+    phone.image = "assets/yes_phone.png";
+    vibration.start("confirmation");
+  }, 333);
+  setTimeout(() => {
+    alert.style.visibility = "hidden";
+    phone.image = "assets/no_phone.png";
+  }, 1250);
+  
+}
+
+messaging.peerSocket.onopen = evt => {
+  clearTimeout(alertTimer);
+}
+
+messaging.peerSocket.onclose = evt => {
+  alertTimer = setTimeout(() => {
+      alert.style.visibility = "visible";
+      vibration.start("nudge-max");
+      display.poke();
+  }, 135000)
+}
 
 resetDate();
 
