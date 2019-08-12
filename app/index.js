@@ -51,6 +51,8 @@ let phone = document.getElementById("phone");
 let sunrise;
 let sunset;
 
+const MS_PER_MIN = 1000 * 60;
+
 function defaultSunsetSunrise(error) {
   sunrise = new Date();
   sunrise.setHours(6);
@@ -175,7 +177,7 @@ messaging.peerSocket.onmessage = evt => {
       phone.image = "assets/no_phone.png";
     }
   } else if (evt.data.key === "waitTime" && evt.data.newValue) {
-    alertDelay = Math.round(parseFloat(JSON.parse(evt.data.newValue).name) * 60000);
+    alertDelay = Math.round(parseFloat(JSON.parse(evt.data.newValue).name) * MS_PER_MIN);
   } else if (evt.data.key === "toggleBirthday" && evt.data.newValue) {
     allowBirthday = (evt.data.newValue === "true");
     checkBirthday(new Date());
@@ -210,12 +212,12 @@ messaging.peerSocket.onopen = evt => {
 }
 
 messaging.peerSocket.onclose = evt => {
-  if (allowAlert && alertDelay >= 0) {
+  if (!evt.wasClean && allowAlert && alertDelay >= 0) {
     alertTimer = setTimeout(() => {
-        alert.style.visibility = "visible";
-        vibration.start("nudge-max");
-        display.poke();
-    }, alertDelay);
+      alert.style.visibility = "visible";
+      vibration.start("nudge-max");
+      display.poke();
+    }, !evt.wasClean ? alertDelay : 6 * MS_PER_MIN);
   }
 }
 
