@@ -19,4 +19,4 @@ If you are interested in downloading this watchface, please [email me](mailto:de
 ![image](https://user-images.githubusercontent.com/3473945/62687163-2fd07600-b994-11e9-91c3-0de5f0bf0a14.png)
 
 ### Settings
-![image](https://user-images.githubusercontent.com/3473945/62740884-07ce2a80-ba07-11e9-9dce-9131d738e19a.png)
+![image](https://user-images.githubusercontent.com/3473945/70175062-03a7d600-16a4-11ea-80fe-45075049ef56.png)
