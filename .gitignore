@@ -1,2 +1,6 @@
 # Image files
 *.png
+node_modules/
+temp/
+dist/
+build/

@@ -1,25 +1,32 @@
 {
-  "fitbit": {
-    "appUUID": "26f6edd0-a371-4d1d-b66c-444fcdde83f1",
-    "appType": "clockface",
-    "appDisplayName": "Mario Watchface",
-    "iconFile": "resources/icon.png",
-    "wipeColor": "",
-    "requestedPermissions": [
-      "access_location"
-    ],
-    "buildTargets": [
-      "meson",
-      "gemini"
-    ],
-    "i18n": {
-      "en": {
-        "name": "Mario Watchface"
-      }
+    "devDependencies": {
+        "@fitbit/sdk": "6.1",
+        "@fitbit/sdk-cli": "^1.7.3",
+        "@types/suncalc": "^1.8.1",
+        "fitbit-sdk-types": "^8.0.2"
     },
-    "defaultLanguage": "en-US"
-  },
-  "devDependencies": {
-    "@fitbit/sdk": "~3.1.0"
-  }
+    "fitbit": {
+        "appUUID": "26f6edd0-a371-4d1d-b66c-444fcdde83f1",
+        "appType": "clockface",
+        "appDisplayName": "Mario Watchface",
+        "iconFile": "resources/icon.png",
+        "wipeColor": "",
+        "requestedPermissions": [
+            "access_location"
+        ],
+        "buildTargets": [
+            "atlas",
+            "vulcan"
+        ],
+        "i18n": {
+            "en-US": {
+                "name": "Mario Watchface"
+            }
+        },
+        "defaultLanguage": "en-US"
+    },
+    "scripts": {
+        "build": "fitbit-build",
+        "start": "npx fitbit"
+    }
 }
