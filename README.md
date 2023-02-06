@@ -11,6 +11,13 @@ And thank you to [mourner](https://github.com/mourner) for his open-source [Sunc
 # Download
 If you are interested in downloading this watchface, please [email me](mailto:denniskats43@gmail.com).
 
+# Support me
+If you like this project and want to support more projects like it, consider buying me a coffee!
+
+<a href="https://www.buymeacoffee.com/denniskats" title="Support me" style="vertical-align: middle;"><img
+  src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee"
+  style="height: 60px !important; width: 217px !important" /></a>
+
 # Images
 ### Watchface
 ![image](https://user-images.githubusercontent.com/3473945/61575479-4c1a7a80-aa9a-11e9-8d57-4b204c9fa47b.png)
