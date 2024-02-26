@@ -1,15 +1,15 @@
-# Mario Fitbit Watchface
+# Mario Fitbit Watch Face
 
-A simple watchface to show your appreciation for Mario! Set your birthday in the settings and when the day comes, Mario will celebrate with you! 
+A simple watch face to show your appreciation for Mario! Set your birthday in the settings and when the day comes, Mario will celebrate with you! 
 
-Also, if you leave your phone somewhere without noticing, the watchface will notify you with an alert and haptics that it has disconnected.
+Also, if you leave your phone somewhere without noticing, the watch face will notify you with an alert and haptics that it has disconnected.
 
 Inspired by: https://apps.rebble.io/en_US/application/55431083b7d4a71c0000003b.
 
 And thank you to [mourner](https://github.com/mourner) for his open-source [Suncalc](https://github.com/mourner/suncalc) library used to calculate the times for sunset and sunrise.
 
 # Download
-If you are interested in downloading this watchface, please [email me](mailto:denniskats43@gmail.com).
+If you are interested in downloading this watch face, please [email me](mailto:denniskats43@gmail.com?subject=Mario%20Watchface%20for%20Fitbit). I generally respond within a day 🙂.
 
 # Support me
 If you like this project and want to support more projects like it, consider buying me a coffee!
