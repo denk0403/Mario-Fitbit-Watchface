@@ -93,7 +93,7 @@ function updateScene() {
 function updateSunsetSunrise(position) {
     const loc = position.coords;
     const times = SunCalc.getTimes(new Date(), loc.latitude, loc.longitude);
-    log(times);
+    // log(times);
     sunrise = times.sunrise;
     sunset = times.sunset;
     updateScene();
@@ -237,8 +237,14 @@ clock.ontick = (evt) => {
     updateBattery();
     updateScene();
 
-    date.text =
-        dotw[today.getDay()] + ",  " + months[today.getMonth()] + "  " + today.getDate() + "  " + today.getFullYear();
+    `test ${123}`
+
+    const curDOTW = dotw[today.getDay()];
+    const curMonth = months[today.getMonth()];
+    const curDate = today.getDate();
+    const curYear = today.getFullYear();
+
+    date.text = `${curDOTW},  ${curMonth}  ${curDate}  ${curYear}`;
 
     jump(hours >= 12);
 

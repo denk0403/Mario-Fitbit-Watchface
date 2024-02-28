@@ -6,10 +6,10 @@ export function zeroPad(i) {
     return "" + i;
 }
 
-export function log(a) {
-    try {
-        console.log(JSON.stringify(a));
-    } catch {
-        console.log("Unable to log: ", a);
-    }
-}
+// export function log(a) {
+//     try {
+//         console.log(JSON.stringify(a));
+//     } catch {
+//         console.log("Unable to log: ", a);
+//     }
+// }

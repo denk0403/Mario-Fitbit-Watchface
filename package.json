@@ -1,7 +1,7 @@
 {
     "devDependencies": {
-        "@fitbit/sdk": "6.1",
-        "@fitbit/sdk-cli": "^1.7.3",
+        "@fitbit/sdk": "~6.2.0-pre.1",
+        "@fitbit/sdk-cli": "~1.8.0-pre.10",
         "@types/suncalc": "^1.8.1",
         "fitbit-sdk-types": "^8.0.2"
     },
@@ -16,7 +16,9 @@
         ],
         "buildTargets": [
             "atlas",
-            "vulcan"
+            "vulcan",
+            "rhea",
+            "hera"
         ],
         "i18n": {
             "en-US": {

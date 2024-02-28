@@ -1,19 +1,28 @@
 <svg>
-  <image id="background" href="assets/full_night.png" x="0" y="0" width="100%" height="100%" class="background" />
+  <image id="background" href="assets/full_night.png" x="0" y="0" width="100%" height="100%"
+    class="background" />
 
-  <image id="battery_icon" href="assets/100battery.png" x="7" y="5" width="15" height="23" class="icon" />
+  <!-- Versa -->
+  <!-- <image id="battery_icon" href="assets/100battery.png" x="7" y="5" width="15" height="23"
+  class="icon" /> -->
+
+  <image id="battery_icon" href="assets/100battery.png" class="icon" />
   <text id="battery" />
 
+  <!-- Versa -->
+  <!-- <text id="date" /> -->
   <text id="date" />
 
-  <g id="movable">
+  <!-- Versa -->
+  <!-- <g id="movable"> -->
+  <g id="movable" transform="translate(20,10)">
     <mask id="mask">
       <rect x="51" y="33" width="198" height="100" />
       <rect x="250" y="100" width="33" height="33" />
     </mask>
     <svg mask="#mask">
-
-      <image id="blocks" href="assets/am-blocks.png" x="50" y="33" width="233" height="100" class="blocks" />
+      <image id="blocks" href="assets/am-blocks.png" x="50" y="33" width="233" height="100"
+        class="blocks" />
 
       <svg id="time">
         <image id="hours1" href="" x="63" y="55" width="33" height="55" class="foreground" />
@@ -31,22 +40,35 @@
   </g>
 
   <svg id="jump_animation">
-    <image id="mario" href="" x="33%" y="142" width="33%" height="138" class="player" />
+    <!-- Versa -->
+    <!-- <image id="mario" href="" x="33%" y="142" width="33%" height="138" class="player" /> -->
+    <image id="mario" href="" x="33%" y="176" width="33%" height="138" class="player" />
 
-    <animate attributeName="y" begin="enable" from="0" to="-47" dur="0.25" />
+    <!-- Versa -->
+    <!-- <animate attributeName="y" begin="enable" from="0" to="-47" dur="0.25" />
     <animate attributeName="y" begin="enable+0.25" from="-47" to="-80" dur="0.25" />
-    <animate attributeName="y" begin="enable+0.5" from="-80" to="0" dur="0.5" />
+    <animate attributeName="y" begin="enable+0.5" from="-80" to="0" dur="0.5" /> -->
+
+    <animate attributeName="y" begin="enable" from="0" to="-70" dur="0.25" />
+    <animate attributeName="y" begin="enable+0.25" from="-70" to="-103" dur="0.25" />
+    <animate attributeName="y" begin="enable+0.5" from="-103" to="0" dur="0.5" />
   </svg>
 
   <svg id="alert_screen" visibility="hidden">
     <rect width="100%" height="100%" fill="black" opacity="0.85" />
 
-    <use id="mixedtext" href="#mixed-text-center-mid" y="10" height="100%" fill="fb-white">
+    <!-- <use id="mixedtext" href="#mixed-text-center-mid" y="10" height="100%" fill="fb-white">
       <set href="#header/text" attributeName="text-buffer" to="Do you have your phone?" />
-    </use>
+    </use> -->
+    <textarea class="have-phone">Do you have your phone?</textarea>
 
-    <use id="confirm" href="#square-button" y="225" fill="limegreen">
+    <!-- <use id="confirm" href="#square-button" y="225" fill="limegreen">
       <set href="#text" attributeName="text-buffer" to="I have it!" />
+    </use> -->
+
+    <use id="confirm" href="#text-button" class="text-button bottom application-fill">
+      <set href="#text" attributeName="text-buffer" to="I have it!" />
+      <set href="#text" attributeName="fill" to="fb-white" />
     </use>
 
     <image id="phone" href="assets/no_phone.png" x="50%-25" y="33%-75" width="50" height="75" />

@@ -1,4 +1,5 @@
-#battery {
+/* Versa */
+/* #battery {
   font-size: 16;
   font-family: System-Bold;
   text-length: 10;
@@ -6,9 +7,27 @@
   x: 45;
   y: 23;
   fill: white;
+} */
+
+#battery_icon {
+  x: 55;
+  y: 13;
+  width: 15;
+  height: 23;
 }
 
-#date {
+#battery {
+  font-size: 16;
+  font-family: System-Bold;
+  text-length: 10;
+  text-anchor: start;
+  x: 75;
+  y: 30;
+  fill: white;
+}
+
+/* Versa */
+/* #date {
   font-size: 32;
   font-family: Tungsten-Medium;
   text-length: 1000;
@@ -16,5 +35,25 @@
   x: 50%;
   y: 27;
   fill: white;
+} */
 
+#date {
+  font-size: 31;
+  font-family: Tungsten-Medium;
+  text-length: 1000;
+  text-anchor: end;
+  x: 100%-65;
+  y: 35;
+  fill: white;
+}
+
+.application-fill {
+  fill: fb-green;
+}
+
+.have-phone {
+  font-size: 40;
+  y: 37%;
+  fill: fb-white;
+  text-anchor: middle;
 }
